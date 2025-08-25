@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTO 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.test_backend.mapper.SysUserMapper">
+    <select id="getListByKeyword" resultType="com.test.test_backend.entity.SysUser">
+        select *
+        from sys_user
+        <if test="keyword != null and keyword != ''">
+            where (account like concat('%',#{keyword},'%') or user_name like concat('%',#{keyword},'%') or remark like concat('%',#{keyword},'%'))
+        </if>
+    </select>
+</mapper>

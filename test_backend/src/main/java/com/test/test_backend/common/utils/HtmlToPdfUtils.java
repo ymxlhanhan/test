@@ -1,4 +1,4 @@
-package com.test.test_backend.utils;
+package com.test.test_backend.common.utils;
 
 import java.io.InputStream;
 import java.io.OutputStream;

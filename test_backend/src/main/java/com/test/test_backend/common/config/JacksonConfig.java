@@ -1,4 +1,4 @@
-package com.test.test_backend.config;
+package com.test.test_backend.common.config;
 
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.databind.JsonSerializer;

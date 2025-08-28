@@ -2,7 +2,7 @@ package com.test.test_backend.controller;
 
 import com.test.test_backend.entity.SysUser;
 import com.test.test_backend.service.SysUserService;
-import com.test.test_backend.utils.JsonResult;
+import com.test.test_backend.common.utils.JsonResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

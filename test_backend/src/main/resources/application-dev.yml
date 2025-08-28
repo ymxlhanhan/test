@@ -5,10 +5,15 @@ spring:
     name: dev
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306
+    url: jdbc:mysql://localhost:3306/test
     username: root
     password: Ymxl0103
 
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**/*.xml
   type-aliases-package: com.test.test_backend.entity
+
+token:
+  privateKey: 'aC8+44ApKL0DI2cmknHUylcx2Pfo/NKM2x73GvOenRJGgDgV/aDSBXCwHvZvmblpMJ2kx6eqmD4smUQOZJM4Dg=='
+  youngToken: 1000000
+  oldToken: 3000000000

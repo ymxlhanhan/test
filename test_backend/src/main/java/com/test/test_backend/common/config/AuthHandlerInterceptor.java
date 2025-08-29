@@ -43,14 +43,14 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
         if (result.getData() == null) {
             log.info(result.getMsg());
             return Boolean.FALSE;
-        } else {
-            if(result.getData().getId().equals("admin")){
-                log.info("=====admin账户=====");
-            }
-            if(result.getData().getId().equals("user")){
-                log.info("=====user账户=====");
-            }
-            return Boolean.TRUE;
         }
+        // 判断用户角色，以后可能会用到分配权限
+        if (result.getData().getId().equals("admin")) {
+            log.info("=====admin账户=====");
+        }
+        if (result.getData().getId().equals("user")) {
+            log.info("=====user账户=====");
+        }
+        return Boolean.TRUE;
     }
 }

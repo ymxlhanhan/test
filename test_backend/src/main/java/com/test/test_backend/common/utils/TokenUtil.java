@@ -12,9 +12,8 @@ import java.util.Date;
 
 @Component
 public class TokenUtil {
-    @Value("${token.privateKey}")
-    private static String privateKey;
-    private static final SecretKey KEY = Jwts.SIG.HS256.key().random(new SecureRandom(privateKey.getBytes(StandardCharsets.UTF_8))).build();
+    private static final String PRIVATE_KEY = "aC8+44ApKL0DI2cmknHUylcx2Pfo/NKM2x73GvOenRJGgDgV/aDSBXCwHvZvmblpMJ2kx6eqmD4smUQOZJM4Dg==";
+    private static final SecretKey KEY = Jwts.SIG.HS256.key().random(new SecureRandom(PRIVATE_KEY.getBytes(StandardCharsets.UTF_8))).build();
     private static final long EXPIRE_TIME = 1000 * 60 * 60 * 12; // 12个小时过期
 
     /**
@@ -41,6 +40,7 @@ public class TokenUtil {
 
     /**
      * 解析token
+     *
      * @param token
      * @return
      */

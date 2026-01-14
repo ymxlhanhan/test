@@ -5,23 +5,20 @@ import com.test.test_backend.service.SysUserService;
 import com.test.test_backend.common.utils.JsonResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Slf4j
 @RestController
-@RequestMapping("sys/user")
+@RequestMapping("/sys/user")
 public class SysUserController {
 
     @Autowired
     private SysUserService sysUserService;
 
-    @PostMapping("/list")
-    public JsonResult<List<SysUser>> getUserList(@RequestBody String keyword) {
+    @GetMapping("/list")
+    public JsonResult<List<SysUser>> getUserList(String keyword) {
         JsonResult<List<SysUser>> result = new JsonResult<>();
         try {
             result.setData(sysUserService.getList(keyword));

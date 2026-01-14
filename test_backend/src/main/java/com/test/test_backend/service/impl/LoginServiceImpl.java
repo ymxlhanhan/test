@@ -2,6 +2,7 @@ package com.test.test_backend.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.test.test_backend.common.enums.CodeEnum;
+import com.test.test_backend.common.utils.EncryptUtil;
 import com.test.test_backend.common.utils.JsonResult;
 import com.test.test_backend.common.utils.TokenUtil;
 import com.test.test_backend.dto.LoginDto;
@@ -11,6 +12,7 @@ import com.test.test_backend.service.LoginService;
 import com.test.test_backend.vo.LoginVo;
 import io.micrometer.common.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,8 @@ public class LoginServiceImpl implements LoginService {
     private SysUserMapper sysUserMapper;
     @Autowired
     private TokenUtil tokenUtil;
+    @Autowired
+    private EncryptUtil encryptUtil;
 
 
     /**
@@ -44,11 +48,11 @@ public class LoginServiceImpl implements LoginService {
         wrapper.eq("account", loginDto.getAccount());
         SysUser sysUser = sysUserMapper.selectOne(wrapper);
         // 用户信息为空，未拥有账户
-        if (sysUser == null) {
+        if (encryptUtil.checkPassword(loginDto.getPassword(), sysUser.getPassword())) {
             return new JsonResult<>(null, "未拥有账户", CodeEnum.SUCCESS.getCode());
         }
         // 判断密码
-        if (!loginDto.getPassword().equals(sysUser.getPassword())) {
+        if (!encryptUtil.checkPassword(loginDto.getPassword(), sysUser.getPassword())) {
             return new JsonResult<>(null, "密码错误", CodeEnum.SUCCESS.getCode());
         }
         // 获取token

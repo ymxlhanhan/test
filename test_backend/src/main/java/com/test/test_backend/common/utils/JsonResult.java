@@ -25,7 +25,7 @@ public class JsonResult<T> {
     public JsonResult(String msg, String code, boolean success) {
         this.msg = msg;
         this.code = code;
-        success = success;
+        this.success = success;
     }
 
     /**
@@ -33,9 +33,9 @@ public class JsonResult<T> {
      */
     public JsonResult(T data) {
         this.data = data;
-        code = "200";
-        msg = "操作成功！";
-        success = true;
+        this.code = "200";
+        this.msg = "操作成功！";
+        this.success = true;
     }
 
     /**

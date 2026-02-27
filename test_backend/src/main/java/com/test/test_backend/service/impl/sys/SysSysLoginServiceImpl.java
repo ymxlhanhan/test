@@ -1,4 +1,4 @@
-package com.test.test_backend.service.impl;
+package com.test.test_backend.service.impl.sys;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.test.test_backend.common.enums.CodeEnum;
@@ -8,17 +8,19 @@ import com.test.test_backend.common.utils.TokenUtil;
 import com.test.test_backend.dto.LoginDto;
 import com.test.test_backend.entity.SysUser;
 import com.test.test_backend.mapper.SysUserMapper;
-import com.test.test_backend.service.LoginService;
+import com.test.test_backend.service.sys.SysLoginService;
 import com.test.test_backend.vo.LoginVo;
 import io.micrometer.common.util.StringUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-public class LoginServiceImpl implements LoginService {
+public class SysSysLoginServiceImpl implements SysLoginService {
     @Autowired
     private SysUserMapper sysUserMapper;
     @Autowired
@@ -26,9 +28,8 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     private EncryptUtil encryptUtil;
 
-
     /**
-     * 登录
+     * 系统用户登录
      *
      * @return
      * @param: loginDto
@@ -48,7 +49,7 @@ public class LoginServiceImpl implements LoginService {
         wrapper.eq("account", loginDto.getAccount());
         SysUser sysUser = sysUserMapper.selectOne(wrapper);
         // 用户信息为空，未拥有账户
-        if (encryptUtil.checkPassword(loginDto.getPassword(), sysUser.getPassword())) {
+        if (sysUser == null) {
             return new JsonResult<>(null, "未拥有账户", CodeEnum.SUCCESS.getCode());
         }
         // 判断密码

@@ -1,6 +1,6 @@
 package com.test.test_backend.common.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.test.test_backend.common.handler.AuthenticationHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,7 +11,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -26,7 +25,9 @@ public class SecurityConfig implements WebMvcConfigurer {
                 .addInterceptor(new AuthHandlerInterceptor())
                 // 所有路径拦截
                 .addPathPatterns("/**")
-//                .excludePathPatterns("sys/sysLogin");
+                .excludePathPatterns("/register")
+                .excludePathPatterns("/getKey")
+                .excludePathPatterns("/login");
         ;
     }
 
@@ -36,14 +37,19 @@ public class SecurityConfig implements WebMvcConfigurer {
         http
                 .csrf(csrf -> csrf
                         .ignoringRequestMatchers(
-                                "/sysLogin", "/test"
+                                "/login"
+                                , "/register"
+                                , "/getKey"
+//                                , "/test"
                         ))
                 .authorizeHttpRequests(auth ->
                         auth
                                 // 不需要验证的
                                 .requestMatchers(
-                                        "/sysLogin"
-                                        ,"/test"
+                                        "/login"
+                                        , "/register"
+                                        , "/getKey"
+//                                        ,"/test"
 //                                        ,"/test/**"
                                 )
                                 // 通配符**
@@ -53,6 +59,9 @@ public class SecurityConfig implements WebMvcConfigurer {
                                 // 已认证的请求会被自动授权
                                 .authenticated()
                         )
+                .exceptionHandling(handling -> handling
+                        // 认证自定义返回
+                        .authenticationEntryPoint(new AuthenticationHandler()))
         // 自定义表单登录
 //                .formLogin()
 //                .loginPage("/sysLogin")

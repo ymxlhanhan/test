@@ -12,7 +12,7 @@ public class SysUser {
     private String userId;
     private String account;
     private String password;
-    private String user_name;
+    private String userName;
     private String deleted;
     private String userRole;
     private String remark;

@@ -19,25 +19,26 @@ public class SysUserController {
 
     @GetMapping("/list")
     public JsonResult<List<SysUser>> getUserList(String keyword) {
-        JsonResult<List<SysUser>> result = new JsonResult<>();
-        try {
-            result.setData(sysUserService.getList(keyword));
-        } catch (Exception e) {
-            result.setSuccess(false);
-            log.error("查询系统用户列表失败", e.getMessage());
-        }
-        return result;
+//        JsonResult<List<SysUser>> result = new JsonResult<>();
+//        try {
+//            result.setData(sysUserService.getList(keyword));
+//        } catch (Exception e) {
+//            result.setSuccess(false);
+//            log.error("查询系统用户列表失败", e.getMessage());
+//        }
+//        return result;
+        return null;
     }
 
     @PostMapping("/update")
     public JsonResult updateUsers(@RequestBody SysUser users) {
-        JsonResult result = new JsonResult();
-        try{
-//            sysUserService.updateUsers();
-        } catch (Exception e) {
-            log.error("更新系统用户信息失败", e.getMessage());
-        }
-        return result;
+//        JsonResult result = new JsonResult();
+//        try{
+////            sysUserService.updateUsers();
+//        } catch (Exception e) {
+//            log.error("更新系统用户信息失败", e.getMessage());
+//        }
+        return null;
     }
 
 }

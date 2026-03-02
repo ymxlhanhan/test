@@ -11,7 +11,7 @@ import java.security.SecureRandom;
 import java.util.Date;
 
 @Component
-public final class TokenUtil {
+public class TokenUtil {
     private static final String PRIVATE_KEY = "aC8+44ApKL0DI2cmknHUylcx2Pfo/NKM2x73GvOenRJGgDgV/aDSBXCwHvZvmblpMJ2kx6eqmD4smUQOZJM4Dg==";
     private static final SecretKey KEY = Jwts.SIG.HS256.key().random(new SecureRandom(PRIVATE_KEY.getBytes(StandardCharsets.UTF_8))).build();
     private static final long EXPIRE_TIME = 1000 * 60 * 60 * 12; // 12个小时过期
@@ -45,18 +45,19 @@ public final class TokenUtil {
      * @return
      */
     public static JsonResult<Claims> parseToken(String token) {
-        JsonResult<Claims> result = new JsonResult<>();
+        JsonResult<Claims> result = null;
         try {
             Jws<Claims> jws = Jwts.parser().verifyWith(KEY).build().parseSignedClaims(token);
-            result.setData(jws.getPayload());
+            result = JsonResult.success(jws.getPayload());
         } catch (Exception e) {
+            if (e instanceof NullPointerException) {
+                result = JsonResult.fail("token为空");
+            }
             if (e instanceof ExpiredJwtException) {
-                result.setData(null);
-                result.setMsg("token过期");
+                result = JsonResult.fail("token过期");
             }
             if (e instanceof JwtException) {
-                result.setData(null);
-                result.setMsg("token无效");
+                result = JsonResult.fail("token无效");
             }
         }
         return result;

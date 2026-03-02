@@ -29,9 +29,9 @@ public class AuthHandlerInterceptor implements HandlerInterceptor {
      */
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         log.info("=====进入拦截器=====");
-        if (handler instanceof HandlerMethod) {
-            return Boolean.TRUE;
-        }
+//        if (handler instanceof HandlerMethod) {
+//            return Boolean.TRUE;
+//        }
         String token = request.getHeader("token");
         // 判断是否登录
         if (StringUtils.isNullOrEmpty(token)) {

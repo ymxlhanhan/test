@@ -170,7 +170,6 @@
                 <version>${spring-boot.version}</version>
                 <configuration>
                     <mainClass>com.test.test_backend.TestBackendApplication</mainClass>
-                    <skip>true</skip>
                 </configuration>
                 <executions>
                     <execution>

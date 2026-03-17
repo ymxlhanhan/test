@@ -15,6 +15,7 @@
         <spring-cloud.version>2023.0.1</spring-cloud.version>
         <mybatis-plus.version>3.5.5</mybatis-plus.version>
         <nacos.version>2023.0.3.2</nacos.version>
+        <maven.version>3.8.1</maven.version>
     </properties>
     <dependencies>
         <dependency>
@@ -151,7 +152,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>${maven.version}</version>
                 <configuration>
                     <source>17</source>
                     <target>17</target>

@@ -69,4 +69,16 @@ public class SysLoginController {
         }
         return result;
     }
+
+    /**
+     * 检查token有效性
+     *
+     * @author: ymxl
+     * @date: 2026/3/5
+     * TODO
+    */
+    @GetMapping("/checkToken")
+    public JsonResult<Boolean> checkToken(String account) {
+        return JsonResult.success(true);
+    }
 }

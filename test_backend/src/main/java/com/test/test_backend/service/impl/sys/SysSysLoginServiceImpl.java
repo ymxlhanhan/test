@@ -33,7 +33,6 @@ public class SysSysLoginServiceImpl implements SysLoginService {
      * @param: loginDto
      * @author: ymxl
      * @date: 2025-08-26
-     * TODO
      */
     @Override
     public JsonResult<LoginVo> login(LoginDto loginDto) {
@@ -58,6 +57,7 @@ public class SysSysLoginServiceImpl implements SysLoginService {
         String token = TokenUtil.getToken(sysUser.getUserId(), sysUser.getAccount(), sysUser.getUserRole());
         log.info("token:{}", token);
         loginVo.setToken(token);
+        loginVo.setUserName(sysUser.getUserName());
         return JsonResult.success(loginVo);
     }
 

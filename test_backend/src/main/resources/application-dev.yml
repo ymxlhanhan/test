@@ -1,21 +1,14 @@
-server:
-  port: 8888
-
 spring:
-  mvc:
-    servlet:
-      # 配置这个，以确保DispatcherServlet在启动时被加载
-      load-on-startup: 10
-  security:
-    user:
-      name: user
-      password: 12345
-      roles: admin
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/test
-    username: root
-    password: Ymxl0103
-
-mybatis-plus:
-  mapper-locations: "classpath*:/mapper/**.xml"
+  application:
+    name: test_backend
+  config:
+    import[0]: nacos:dev?group=DEFAULT_GROUP
+  cloud:
+    nacos:
+      config:
+        server-addr: 1.12.59.169:8848
+        username: nacos
+        password: nacos
+        namespace: test
+        # 查到的配置返回的格式
+        file-extension: yml
